@@ -44,6 +44,7 @@ class GameServerProtocol(WebSocketServerProtocol):
 		self.factory.players.remove(self)
 		print(f"Websockets connection closed {"unexpectly" if not wasClean else "cleanly"} with code {code}: {reason}")
 
+	#override
 	def onMessage(self, payload, isBinary):
 		decoded_payload = payload.decode('utf-8')
 
