@@ -1,3 +1,4 @@
 ﻿server/venv/pyvenv.cfg
 server/venv/Lib
 server/venv/Scripts
+server/__pycache__

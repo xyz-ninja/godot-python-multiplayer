@@ -13,11 +13,11 @@ class Packet:
 	def __str__(self) -> str:
 		# example:
 		# {
-		#	"action" : "Login"
+		#	"action" : "Login" 
 		#	"p0" : "Password",
 		# }
 		
-		serialize_dict = { "action"  : self.action.name}
+		serialize_dict = { "a"  : self.action.name}
 		
 		for i in range(len(self.payloads)):
 			serialize_dict[f'p{i}'] = self.payloads[i]
@@ -37,7 +37,7 @@ def from_json(json_str: str) -> Packet:
 	payloads = []
 
 	for key, value in obj_dict.items():
-		if key == 'action':
+		if key == 'a':
 			action = value
 		elif key[0] == 'p':
 			index = int(key[1:])

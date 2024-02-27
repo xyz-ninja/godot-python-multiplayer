@@ -2,12 +2,12 @@ import sys
 import protocol
 from twisted.python import log
 from twisted.internet import reactor, task
-from autobahn.twisted.websocket import WebSocketWebFactory
+from autobahn.twisted.websocket import WebSocketServerFactory
 
-class GameFactory(WebSocketWebFactory):
+class GameFactory(WebSocketServerFactory):
 	def __init__(self, hostname: str, port: int):
 		self.protocol = protocol.GameServerProtocol
-		super().init(f"ws://{hostname}:{port}")
+		super().__init__(f"ws://{hostname}:{port}")
 
 		self.players: set[protocol.GameServerProtocol] = set()
 
