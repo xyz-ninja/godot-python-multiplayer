@@ -5,8 +5,9 @@ from autobahn.twisted.websocket import WebSocketServerProtocol
 class GameServerProtocol(WebSocketServerProtocol):
 	def __init__(self):
 		super().__init__()
-		self._packet_queue: queue.Queue[tuple['GameServerProtocol', 'packet.Packet']] = queue.Queue()
+		self._packet_queue: queue.Queue[tuple['GameServerProtocol', packet.Packet]] = queue.Queue()
 		self._state: callable = None
+		#self._state = self.PLAY
 	
 	def PLAY(self, sender: 'GameServerProtocol', p: packet.Packet):
 		pass
@@ -20,7 +21,9 @@ class GameServerProtocol(WebSocketServerProtocol):
 	def broadcast(self, packet: packet.Packet, exclude_self: bool = False):
 		for other in self.factory.players:
 			if other == self and exclude_self:
-				other.onPacket(self, packet)
+				continue
+
+			other.onPacket(self, packet)
 
 	def send_client(self, packet: packet.Packet):
 		b = bytes(packet)
@@ -32,7 +35,7 @@ class GameServerProtocol(WebSocketServerProtocol):
 
 	#override
 	def onConnect(self, request):
-		print(f"Client connected: {request.Peer}")
+		print(f"Client connected: {request.peer}")
 
 	#override
 	def onOpen(self):
