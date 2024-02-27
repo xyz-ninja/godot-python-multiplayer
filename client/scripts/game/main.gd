@@ -14,7 +14,7 @@ func _ready():
 
 	add_child(_network_client)
 
-	_network_client.connect_to_server("127.0.0.1", 8801)
+	_network_client.connect_to_server("127.0.0.1", 8081)
 
 	state = funcref(self, "PLAY")
 

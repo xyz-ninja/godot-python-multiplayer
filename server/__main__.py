@@ -27,7 +27,7 @@ class GameFactory(WebSocketServerFactory):
 if __name__ == "__main__":
 	log.startLogging(sys.stdout)
 
-	PORT: int = 8801
+	PORT: int = 8081
 	factory = GameFactory('0.0.0.0', PORT)
 
 	reactor.listenTCP(PORT, factory)
