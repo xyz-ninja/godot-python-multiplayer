@@ -1,5 +1,5 @@
 import queue
-from server import packet
+import packet
 from autobahn.twisted.websocket import WebSocketServerProtocol
 
 # в twisted протокол - это не совсем протокол, а скорее подключенный клиент
