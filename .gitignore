@@ -3,3 +3,5 @@ server/venv/Lib
 server/venv/Scripts
 server/__pycache__
 	
+client/html_export
+client/.import

@@ -22,9 +22,9 @@ func _ready():
 	_state = funcref(self, "PLAY")
 
 func PLAY(p):
-	match p.action:
+	match p.Action:
 		"Chat":
-			var message: String = p.payloads[0]
+			var message: String = p.Payloads[0]
 			_chatbox.add_message(message)
 
 func send_chat(text: String):

@@ -1,16 +1,16 @@
 extends Object
 
-var _action: String
-var _payloads: Array
+var Action: String
+var Payloads: Array
 
 func _init(action: String, payloads: Array):
-	_action = action
-	_payloads = payloads
+	Action = action
+	Payloads = payloads
 
 func tostring() -> String:
-	var serialize_dict: Dictionary = {"a": _action}
-	for i in range(len(_payloads)):
-		serialize_dict["p%d" % i] = _payloads[i]
+	var serialize_dict: Dictionary = {"a": Action}
+	for i in range(len(Payloads)):
+		serialize_dict["p%d" % i] = Payloads[i]
 	var data: String = JSON.print(serialize_dict)
 	return data
 
@@ -26,5 +26,6 @@ static func json_to_action_payloads(json_str: String) -> Array:
 		elif key[0] == "p":
 			var index: int = key.split_floats("p", true)[1]
 			payloads.insert(index, value)
+
 
 	return [action, payloads]
