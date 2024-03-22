@@ -8,12 +8,16 @@ class GameServerProtocol(WebSocketServerProtocol):
 		super().__init__()
 
 		# в tuple (Sender, Packet)
-		self._packet_queue: queue.Queue[tuple['GameServerProtocol', packet.Packet]] = queue.Queue
+		self._packet_queue: queue.Queue[tuple['GameServerProtocol', packet.Packet]] = queue.Queue()
 
 		self._state: callable = None
 
 	def PLAY(self, sender: 'GameServerProtocol', p: packet.Packet):
-		pass
+		if p.action == packet.Action.Chat:
+			if sender == self:
+				self.broadcast(p, exclude_self = True)
+			else:
+				self.send_client(p)
 
 	def tick(self):
 		if not self._packet_queue.empty():
@@ -27,7 +31,14 @@ class GameServerProtocol(WebSocketServerProtocol):
 			other.onPacket(self, p)
 	
 	def onPacket(self, sender: 'GameServerProtocol', p: packet.Packet):
-		self._packet_queue.put((sender, p))
+		print("sender ", sender)
+		print("packet ", p)
+		
+		item = (sender, p)
+
+		print("item", item)
+
+		self._packet_queue.put(item)
 		print(f"Queued packet: {p}")
 
 	# override functions

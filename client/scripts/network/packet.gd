@@ -8,10 +8,10 @@ func _init(action: String, payloads: Array):
 	_payloads = payloads
 
 func tostring() -> String:
-	var serlialize_dict: Dictionary = {"a": _action}
+	var serialize_dict: Dictionary = {"a": _action}
 	for i in range(len(_payloads)):
-		serlialize_dict["p%d" % i] = _action[i]
-	var data: String = JSON.print(serlialize_dict)
+		serialize_dict["p%d" % i] = _payloads[i]
+	var data: String = JSON.print(serialize_dict)
 	return data
 
 static func json_to_action_payloads(json_str: String) -> Array:

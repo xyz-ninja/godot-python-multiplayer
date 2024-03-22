@@ -2,7 +2,7 @@ import json
 import enum
 
 class Action(enum.Enum):
-	pass
+	Chat = enum.auto()
 
 class Packet:
 	def __init__(self, action: Action, *payloads):
@@ -11,9 +11,10 @@ class Packet:
 
 	# меняет функцию toString()
 	def __str__(self) -> str:
-		serialize_dict = {'a', self.action.name}
+		serialize_dict = {'a': self.action.name}
 		for i in range(len(self.payloads)):
-			serialize_dict["p" + str(i)] = self.payloads[i]
+			key = "p" + str(i)
+			serialize_dict[key] = self.payloads[i]
 
 		data = json.dumps(serialize_dict, separators=(',', ':'))
 		
@@ -24,7 +25,10 @@ class Packet:
 	
 	def __bytes__(self) -> bytes:
 		return str(self).encode('utf-8')
-	
+
+class ChatPacket(Packet):
+	def __init__(self, message: str):
+		super().__init__(Action.Chat, message)
 
 def from_json(json_str: str) -> Packet:
 	obj_dict = json.loads(json_str)
